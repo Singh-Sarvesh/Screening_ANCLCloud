@@ -1,0 +1,500 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adpro - Screening</title>
+    <link href="~/Content/jquery-ui.css?BuildNo=@System.Web.Configuration.WebConfigurationManager.AppSettings["BuildNo"]" rel="stylesheet" />
+    <link href="~/Content/Site.css?BuildNo=@System.Web.Configuration.WebConfigurationManager.AppSettings["BuildNo"]" rel="stylesheet" />
+    <link href="~/Content/Style.css?BuildNo=@System.Web.Configuration.WebConfigurationManager.AppSettings["BuildNo"]" rel="stylesheet" />
+    <link href="~/Content/ScrollTable.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+
+        @*var appRoot = '@System.Web.Configuration.WebConfigurationManager.AppSettings["RootPath"]';
+        if ('@Session["UserId"]' == '' && window.location.toString().indexOf('Login') == -1 && appRoot != window.location.toString()) {
+            GotoLogoutPage();
+        }
+        function CloseBookingPage() {
+            window.open('', '_self').close();
+            location.assign(appRoot + "account/login");
+        }*@
+
+      var serverDate = new Date(@DateTime.Now.Month+'/' +    @DateTime.Now.Day+'/' +    @DateTime.Now.Year);
+      var appRoot = '@System.Web.Configuration.WebConfigurationManager.AppSettings["RootPath"]';
+    </script>
+</head>
+<body>
+    <header class="fixed-top" id="header" style="line-height: 1.5; overflow: hidden;height: 44px;">
+        <div style="text-align: left;margin:0px 10px;" class="width47Per left">
+            <a href="#" style="padding: 2px 10px 2px 0;display: block;float: left;"><img src="~/Content/images/menu-24.png" style="height: 24px;" /></a>
+            <a href="#" style="padding: 6px 10px 0px 0;display: block;float: left;"><img src="~/Content/images/logo.png" style="height: 30px;"></a>&nbsp;&nbsp;
+
+            @*<a id="lnkBooking" style="color:white;font-size:16px;vertical-align:middle;padding: 6px 10px 10px 10px;" href="../booking/booking">Booking</a>
+                <a id="lnkMyRoList" style="color:white;font-size:16px;vertical-align:middle;padding: 6px 10px 10px 10px;" href="../bookingapproval/history">My RO List</a>
+
+                <a id="lnkSoApproval" style="color:white;font-size:16px;vertical-align:middle;padding: 6px 10px 10px 10px;" href="#">SO Approval</a>
+                <a id="lnkCCApproval" style="color:white;font-size:16px;vertical-align:middle;padding: 6px 10px 10px 10px;" href="#">CC Approval</a>*@
+            <a id="lnkScreening" style="color:white;font-size:16px;vertical-align:middle;padding: 6px 10px 10px 10px;" href="#">Screening</a>
+        </div>
+
+        @*<div style="text-align:right;font-size:.47em;padding-right:10px;padding-top: 10px;font-weight:500;" class="width47Per right">
+                @Session["UserName"]&nbsp; |&nbsp; @Session["BookingCenter"]
+                &nbsp;|&nbsp; <a style="color:#fff;" id="lnkClose" href='#' onclick="CloseBookingPage()" title="Ctrl+F9">
+                    Close  &#10006;
+                </a>
+            </div>*@
+        <div style="text-align:right;font-size:.47em;padding-right:10px;padding-top: 10px;font-weight:500;" class="width47Per right">
+            <span id="spnusername"></span>&nbsp; |&nbsp; <span id="spncentername"></span>
+            &nbsp;|&nbsp; <a style="color:#fff;" id="lnkClose" href='#' onclick="UserLogOut()" title="Ctrl+F9">
+                Close
+            </a>
+        </div>
+    </header>
+    @*<script type="text/javascript">
+            var pageName = 'Screening';
+            $('#lnkBooking,#lnkMyRoList,#lnkSoApproval,#lnkCCApproval,#lnkScreening').hide();
+            if (pageName == 'Screening')
+                $('#lnkScreening').show().attr('style', 'color:white;font-size:16px;vertical-align:middle;padding: 6px 10px 10px 10px;border-bottom:4px solid #fff;');
+        </script>*@
+
+    <div class="container">
+
+        <script src="~/Scripts/jquery-1.10.2.js?BuildNo=@System.Web.Configuration.WebConfigurationManager.AppSettings["BuildNo"]"></script>
+        <script src="~/Scripts/jquery.js?BuildNo=@System.Web.Configuration.WebConfigurationManager.AppSettings["BuildNo"]"></script>
+        <script src="~/Scripts/jquery-ui.js?BuildNo=@System.Web.Configuration.WebConfigurationManager.AppSettings["BuildNo"]"></script>
+        <script src="~/Scripts/Main.js"></script>
+        <script src="~/Scripts/Screening.js?BuildNo=@System.Web.Configuration.WebConfigurationManager.AppSettings["BuildNo"]"></script>
+        @*<script src="~/Scripts/ScrollableTablePlugin_1.0_min.js"></script>*@
+
+
+        <style type="text/css">
+            table a {
+                color: #000;
+                text-decoration: underline;
+            }
+
+            .hidden {
+                /*visibility: hidden;*/
+                opacity: 0.5;
+                pointer-events: none;
+            }
+
+            .table_grid {
+                width: auto;
+            }
+
+            .box_type input.date-picker {
+                height: 19px;
+                width: 80px;
+                margin-left: 11px;
+            }
+        </style>
+        <input type="hidden" id="hdnIsClassified" value="1" />
+        <div id="divProcessingBox" class="box" style="display:none;"><img src="~/Content/loading.gif" /></div>
+        <input name="__RequestVerificationToken" type="hidden" value="kmNX-Bx1YnrPasBsq3IVQvDRE4buAm2KBu3AjsFXUWsSOfN2PTXCbXx0IyEbqbDkukNalU24ThedhKxu5yzL9KMNjT8x5lNUpv0CxfLIwQs1" />
+
+        <div class="toolbar">
+            <div>
+                <input type="hidden" id="txtpackage" name="Packages" value="-1" />
+                <input type="hidden" id="hdnSession" value="93" />
+                <div class="toolbar_left" style="width:100%;">
+                    <div>
+                        <div class="box_type" style="width: 17%">
+                            <label class="labelalign">Order Type </label> &nbsp;
+                            <select id="ordertypeid" name="ordertypeid" title="Order Type">
+                                <option value="1" selected>Classified</option>
+                                <option value="0">Display</option>
+                            </select>
+                        </div>
+                        <div class="box_type" style="width: 17%">
+                            <label class="labelalign">Language</label> &nbsp;
+                            <select id="LanguageID" name="LanguageID" title="Language Name" parameter="language"></select>
+                        </div>
+                        <div class="box_type" style="width :17%">
+                            <label class="labelalign" style="display:none;">ALL</label>
+                            <input checked="checked" class="checkbox" id="AllAgency" name="AllAgency" type="checkbox" value="true" style="display:none;" /><input name="AllAgency" type="hidden" value="false" />
+                            <label class="labelalign">Agency</label> &nbsp;
+                            <input class="text-box single-line" id="agencyid" name="agencyid" type="text" value="" parameter="agency" autocomplete="off" />
+                        </div>
+                        <div class="box_type" style="width :17%">
+                            <label class=" labelalign">Client</label> &nbsp;
+                            <input class="text-box single-line" id="clientid" name="clientid" type="text" value="" parameter="client" autocomplete="off" />
+                        </div>
+                        <div class="box_type" style="width: 17%">
+                            <label class="labelalign">PE</label> &nbsp;
+                            <select id="Peid" name="Peid" title="PE Code" parameter="pecode"></select>
+                        </div>
+                        <div class="box_type" style="min-width: 30%; margin: 1px 7px 0px 4px;display:none;">
+                            <label class="labelalign ">Package</label>&nbsp;
+                            <button type="button" id="divpackage" class="packagecontainer">Select Package</button>
+                            <div id="packagelst" class="MenuList1 packagelst" parameter="package" style="z-index:6"></div>
+                        </div>
+                        @*<input id="btnCCsubmit" title="Search" type="button" value="Search" class="btn-mat" style="margin:0px;width:120px !important;" />*@
+                        <a href="#" class="btn-mat" id="btnCCsubmit" role="button" aria-pressed="true">Search</a>
+                    </div>
+
+                    <div class="clear" style="padding-top:4px;">
+                        <div class="box_type" style="width :17%">
+                            <label class=" labelalign">Booking ID</label> &nbsp;
+                            <input class="text-box single-line" id="bookingid" name="bookingid" type="text" onkeydown="return validateCharacters(this,event, 'numeric')" maxlength="10" autocomplete="off" />
+                        </div>
+                        <div class="box_type" style="width: 17%">
+                            <label class="labelalign">Status </label> &nbsp;
+                            <select id="StatusID" name="StatusID" title="Status Name" parameter="GetStatus"></select>
+                        </div>
+                        <div class="box_type" style="width: 17%">
+                            <label class="labelalign">Ad Type </label> &nbsp;
+                            <select id="AdtypeID" name="AdtypeID" title="Ad Type" parameter="adtype"></select>
+                        </div>
+                        <div class="box_type" id="category1" style="width: 17%;">
+                            <label class="labelalign">Cat 1</label> &nbsp;
+                            <select id="Cat1ID" name="Cat1ID" title="Child Type" parameter="childadtype">
+                                <option value="-1"></option>
+                            </select>
+                        </div>
+                        <div class="box_type" id="category2" style="width: 17%;">
+                            <label class="labelalign">Cat 2</label> &nbsp;
+                            <select id="Cat2ID" name="Cat2ID" title="Child Type" parameter="childadtype">
+                                <option value="-1"></option>
+                            </select>
+                        </div>
+                        <div class="box_type" style="width: 20%;display:none;">
+                            <label class="labelalign ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Canvassor</label> &nbsp;  &nbsp;  &nbsp;  &nbsp;   &nbsp;
+                            <input class="text-box single-line" id="canvassorid" name="canvassorid" type="text" parameter="canvassor" autocomplete="off" />
+                        </div>
+                        <div class="box_type " style=" padding: 9px; width: 19%; display:none;">
+                            <input type="hidden" id="Dateflag" value="1" />
+                            <label> Booking Date <input checked="checked" id="radiobooking" name="Dateflag" type="radio" value="1" /></label>
+                            <label>&nbsp;&nbsp; Schedule Date <input id="radschedule" name="Dateflag" type="radio" value="2" /></label>
+                        </div>
+                        <div class="box_type" style="width: 16%; padding-bottom: 0px;display:none;">
+                            <label class="labelalign">Date From</label>
+                            <input class="form-control date-picker" id="DateFrom" name="DateFrom" readonly="readonly" title="Date From " type="text" autocomplete="off" />
+                        </div>
+                        <div class="box_type" style="width: 12%; padding-bottom: 0px;display:none;">
+                            <label class="labelalign">Date To</label>
+                            <input class="form-control date-picker" id="DateTo" name="DateTo" readonly="readonly" title="Date To" type="text" autocomplete="off" />
+                        </div>
+                        <div class="box_type" style="width: 17%;display:none;">
+                            <label class="labelalign">CC Officer</label>&nbsp;
+                            <select id="CcOfficerID" name="CcOfficerID" title="CcOfficer Name" parameter="usertype"></select>
+                        </div>
+                        @*<input title="Search" type="button" value="Open" class="btn-mat" style="margin:0px;width:120px !important;" onclick="$('#divScreeningPopUp').dialog('open')" />*@
+                        <a href="#" class="btn-mat" role="button" id="btnopen" style="pointer-events:none;opacity:0.5;" aria-pressed="true">Open</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="page_content" id="DisplayDetails">
+            <h2 class="txtAlignCenter autoMargin" id="txtDSmsg"></h2>
+
+            <div class="innerBox" style="overflow:auto;display:none;width:98%;height:380px;">
+                <table class="tablescroll" id="mytable" style="width:100%;white-space:nowrap;">
+                    <thead>
+                        <tr>
+                            <th><input id="HeadCheck_all" name="HeadCheck_all" value="true" type="checkbox"></th>
+                            <th>BookingID</th>
+                            <th>Agency </th>
+                            <th>Client </th>
+                            <th>Insert Date</th>
+                            <th>Package</th>
+                            <th>RO Number</th>
+                            <th>Rate</th>
+                            <th>Amount</th>
+                            <th>Adtype</th>
+                            <th>Color</th>
+                            <th>Bk. Centre</th>
+                            <th>Accept</th>
+                            <th>Reject</th>
+                            <th>Reason</th>
+                            <th>Note</th>
+                            <th>ROID</th>
+                            @*<th>Canvassor</th>*@
+                            <th>Premia </th>
+                            <th>AdSize</th>
+                            <th>No of Insertions</th>
+                            @*<th>Scheduling Instructions</th>*@
+                            <th>AE Contact</th>
+                            <th>Booking Exec</th>
+                            <th>Booking Date </th>
+                            <th>Approval Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="DSScreeningGrid"></tbody>
+                    @*<tfoot>
+                            <tr>
+                                <td colspan="2" title="approved">
+                                    <img src="~/Content/Accept.png" onclick="ApprovedAll(1)" id="btnaccept" />
+                                </td>
+                                <td colspan="1"><img src="~/Content/Reject.png" onclick="RejectAll(0)" /></td>
+                                <td colspan="2">
+                                    <select id="BookingNo" name="BookingNo" onchange="DisabledAcceptALL(this)" parameter="CCReason" style="width:175px;height:30px;" title="Rejection Reason"></select>
+                                </td>
+                                <td colspan="9">Note <textarea class="form-control" id="txtrejectnote" style="width:450px;height:50px;padding-top:10px;"></textarea></td>
+                                <td colspan="24"></td>
+                            </tr>
+                        </tfoot>*@
+                </table>
+            </div>
+            @*<div>
+                    <div>
+                        <div style="width:30%;float:left;">
+                            <label colspan="2" title="approved"></label>
+                            <img src="~/Content/Accept.png" onclick="ApprovedAll(1)" id="btnaccept" />
+                            <label colspan="1"></label>
+                            <img src="~/Content/Reject.png" onclick="RejectAll(0)" />
+                        </div>
+                        <div style="width:30%;float:left;margin-top:10px;">
+                            <label colspan="2"></label>
+                                <select id="BookingNo" name="BookingNo" onchange="DisabledAcceptALL(this)" parameter="CCReason" style="width:175px;height:30px;" title="Rejection Reason"></select>
+                        </div>
+                        <div style="width:30%;float:left;margin-top:5px;">
+                            <label colspan="9">
+                                Note
+                                <textarea class="form-control" id="txtrejectnote" style="width:350px;height:50px;padding-top:10px;"></textarea>
+                            </label>
+                            <label colspan="24"></label>
+                        </div>
+                    </div>
+                </div>*@
+
+            <div class="custom-overlay" style="position:fixed;left:0;right:0;top:0;bottom:0;z-index:5;display:none;"></div>
+        </div>
+
+        <div class="page_content" id="ClassifiedDetails" style="display:none;min-height:450px;">
+            <h2 class="txtAlignCenter autoMargin" id="txtCLmsg"></h2>
+
+
+            <div class="innerBox" style="overflow:auto;width:98%;height:440px;">
+                @*<div class="page_content_left" style="overflow:auto;">*@
+                <table class="tablescroll" style="width:100%;white-space:nowrap;">
+                    <thead>
+                        <tr>
+                            <th>BookingID</th>
+                            <th>Edition Name</th>
+                            <th>Material</th>
+                            <th>Agency </th>
+                            <th>Package</th>
+                            <th>Status</th>
+                            <th>Adtype</th>
+                            <th>Cat 1</th>
+                            <th>Cat 2</th>
+                            <th>Insert Date</th>
+                            <th>ROID</th>
+                            <th>Approval Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="CLScreeningGrid"></tbody>
+                </table>
+                @*</div>*@
+
+
+                <div class="page_content_right" style="display:none;">
+                    <div class="remark_block">MATTERS</div>
+                    <div class="textarea_block">
+                        <textarea id="txtrejectnote" placeholder="Note . . "></textarea>
+                    </div>
+                    @*<div>
+                            <div>
+                                <label colspan="2" title="approved">
+                                    <img src="~/Content/Accept.png" onclick="ApprovedAll(1)" id="btnaccept" />
+                                </label>
+                                <label colspan="1"><img src="~/Content/Reject.png" onclick="RejectAll(0)" /></label>
+                                <label colspan="2">
+                                    <select id="BookingNo" name="BookingNo" onchange="DisabledAcceptALL(this)" parameter="CCReason" style="width:175px;height:30px;" title="Rejection Reason"></select>
+                                </label>
+                                <label colspan="9">Note <textarea class="form-control" id="txtrejectnote" style="width:450px;height:50px;padding-top:10px;"></textarea></label>
+                                <label colspan="24"></label>
+                            </div>
+                        </div>*@
+                </div>
+
+            </div>
+
+            <div class="custom-overlay" style="position:fixed;left:0;right:0;top:0;bottom:0;z-index:5;display:none;"></div>
+        </div>
+
+        <div class="page_content_footer" style="display:none;">
+            <div>
+                <div style="width:18%;float:left;">
+                    <label colspan="2" title="approved"></label>
+                    <img src="~/Content/Accept.png" onclick="ApprovedAll(1)" id="btnaccept" />
+                    <label colspan="1"></label>
+                    <img src="~/Content/Reject.png" onclick="RejectedAll(0)" />
+                </div>
+                <div style="width:31%;float:left;">
+                    <label colspan="2">Reason</label>
+                    <select id="BookingNo" name="BookingNo" onchange="DisabledAcceptALL(this)" parameter="CCReason" style="width:300px;height:30px;margin-left:15px;" title="Rejection Reason"></select>
+                    <label style="margin-left:10px;">Note</label>
+                </div>
+                <div>
+                    <textarea class="form-control" id="txtdsrejectnote" style="width:350px;height:50px;margin-left:15px"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sceening window -->
+        <div id="divScreeningPopUp" style="display: none; overflow: hidden;">
+            <div class="popup_header">
+                <label>BookingID : <span id="spnbookingid" style="font-weight:400;"></span>, Agent : <span id="spnagencyname" style="font-weight:400;"></span></label>
+                <input type="hidden" id="spnclpeid" />
+                <button id="btnClose" onclick="ScreeningPopUpClose()"><img src="~/Content/cross_16_b.png" /></button>
+            </div>
+            <div class="main-content">
+                <div class="column-left">
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table table-sm table-borderless margin-b-0 table-subfilter">
+                                <tbody>
+                                    <tr>
+                                        <td class="bg-white-85">Edition</td>
+                                        <td class="bg-white-95" colspan="3">
+                                            <input type="text" class="form-control" id="txtedition" style="background:#fff;opacity:0.5;" disabled="disabled" autocomplete="off" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bg-white-85">Other Edition</td>
+                                        <td class="bg-white-95" colspan="3">
+                                            <input type="text" class="form-control" id="txtotheredition" style="background:#fff;opacity:0.5;" disabled="disabled" autocomplete="off" />
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="bg-white-85">Ins. Dates</td>
+                                        <td class="bg-white-95" colspan="3">
+                                            <input type="text" class="form-control" id="txtinsertdate" style="background:#fff;opacity:0.5;" disabled="disabled" autocomplete="off" />
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="bg-white-85">Language</td>
+                                        <td class="bg-white-95">
+                                            <input type="text" class="form-control" id="txtlanguage" style="background:#fff;opacity:0.5;" disabled="disabled" autocomplete="off" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bg-white-85">AdType</td>
+                                        <td class="bg-white-95">
+                                            <input type="text" class="form-control" id="txtadtype" style="background:#fff;opacity:0.5;" disabled="disabled" autocomplete="off" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bg-white-85">Category 1</td>
+                                        <td class="bg-white-95">
+                                            <input type="text" class="form-control" id="txtcat1" style="background:#fff;opacity:0.5;" disabled="disabled" autocomplete="off" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bg-white-85">Category 2</td>
+                                        <td class="bg-white-95">
+                                            <input type="text" class="form-control" id="txtcat2" style="background:#fff;opacity:0.5;" disabled="disabled" autocomplete="off" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bg-white-85">Reasons</td>
+                                        <td class="bg-white-95">
+                                            <select class="form-control" style="background-color:#fff !important;" id="openreasonid" parameter="CCReason"></select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bg-white-85">Remark</td>
+                                        <td class="bg-white-95">
+                                            <textarea class="form-control" id="txtopenremarks" style="width:auto;height:100%;padding-top:10px;background:#fff;"></textarea>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="action-bar">
+                                <input title="Search" type="button" id="btnclaccept" value="Accept all ins. of this PE" onclick="AcceptAllCLData()" class="btn-popup" />
+                                <input title="Search" type="button" id="btnskip" value="Skip >>" onclick="SkipRow()" class="btn-popup" />
+                                <input title="Search" type="button" id="btnclreject" value="Reject all ins. of this PE" onclick="RejectAllCLData()" class="btn-popup" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column-right">
+                    <textarea class="form-control" id="txtclrejectnote" style="width:auto;height:100%;padding-top:10px;" readonly="readonly"></textarea>
+                </div>
+            </div>
+
+            <div style="text-align:center;">
+                <button type="button" class="btn-popup" onclick="ScreeningPopUpClose()">OK</button>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var newdate = serverDate;
+            var defaultdate;
+            newdate.setDate(newdate.getDate() + 1);
+            defaultdate = ('0' + newdate.getDate()).slice(-2) + '/' + ('0' + (newdate.getMonth() + 1)).slice(-2) + '/' + newdate.getFullYear();
+
+            $(document).ready(function () {
+                $('#mytable tr').each(function () {
+                    var path = $(this).find('.tdpath').text().trim();
+                    BindUploadedImages(path, this);
+                });
+                scrHeight = $(window).height() - 285;
+                //$('.tablescroll').Scrollable({
+                //    ScrollHeight: scrHeight,
+                //    ScrollWidth: 0
+                //});
+
+                $('#divScreeningPopUp').dialog({
+                    autoOpen: false,
+                    width: 880,
+                    modal: true,
+                });
+
+                $("#radiobooking").click(function () {
+                    if ($("#radiobooking").prop("checked") == true)
+                        $("#Dateflag").val($("#radiobooking").val());
+                });
+                $("#radschedule").click(function () {
+                    if ($("#radschedule").prop("checked") == true)
+                        $("#Dateflag").val($("#radschedule").val());
+                });
+
+                function BindUploadedImages(materialpath, th) {
+                    if (materialpath != '') {
+                        $(th).find('.divMaterilBox').html('');
+                        var param = {};
+                        param.parameterlist = materialpath;
+                        param.id = 0;
+                        url = "/BookingApproval/GetAttachedFileList";
+                        var result = getresult(url, param);
+                        for (FileCount = 0; FileCount < result.length; FileCount++)
+                            if (FileCount < 4) {
+                                $(th).find('.divMaterilBox').append('<img class="imgFile" path="' + result[FileCount].replace('\\', '/') + '" src="../handler/ImageDownLoader.ashx?path=' + result[FileCount].replace('\\', '/')
+                                    + '&type=thumnail" title="' + result[FileCount].split('/')[1] + '" width="30"/>');
+                            }
+                    }
+                }
+                $('.imgFile').click(function () {
+                    $('.imgFile').removeClass('ActiveImage');
+                    $(this).addClass('ActiveImage');
+                });
+                $('.imgFile').dblclick(function () {
+                    path = $(this).attr('path');
+                    window.open(appRoot + '/Booking/OpenFile?path=' + path, '_blank');
+                });
+
+            });
+
+
+        </script>
+    </div>
+    <div class="clear"></div>
+
+
+</body>
+</html>
+
+

@@ -1,0 +1,447 @@
+﻿
+
+.toolbar {
+    border: 2px solid #fff;
+    border-radius: 5px;
+    margin: 5px;
+    overflow: hidden;
+    padding: 5px;
+    /*background-color: #eeeeee;*/
+}
+
+.toolbar_right {
+    float: right;
+    width: 10%;
+}
+
+.toolbar_left {
+    float: left;
+    width: 90%;
+}
+
+.top_panel {
+    background-color: #eeeeee;
+    border-radius: 4px;
+    margin: 5px;
+    overflow: hidden;
+    font-size: 1.2em;
+    padding: 5px 10px;
+}
+
+.toolbar_left input {
+    border: 1px inset #cccccc;
+    border-radius: 5px;
+    margin: 5px 0;
+    vertical-align: top;
+    width: 145px;
+}
+
+.toolbar_left input.date-picker {
+    border: 1px inset #cccccc;
+    border-radius: 5px;
+    margin: 5px 0;
+    vertical-align: top;
+    width: 85px;
+    text-align: center;
+}
+
+
+.toolbar_left select {
+    border: 1px inset #cccccc;
+    border-radius: 5px;
+    margin: 5px 0;
+    vertical-align: top;
+    width: 150px;
+}
+
+.toolbar_left .checkbox {
+    margin: 10px 5px 0;
+    width: 10px;
+    float: left;
+}
+
+.toolbar_left > label {
+    color: #eee;
+    display: block;
+    float: left;
+    font-size: 19px;
+    margin: 8px 0 0;
+    width: 30px;
+}
+
+.toolbar_right input {
+    border: 1px inset #cccccc;
+    border-radius: 5px;
+    margin: 5px 0;
+    vertical-align: top;
+    width: 120px;
+}
+
+.div > label {
+    display: block;
+    float: left;
+    margin: 8px 0 0;
+    width: 30px;
+}
+
+.btn-mat {
+    background-color: #385723 !important;
+    border-color: #385723 !important;
+    border-radius: 0.5em !important;
+    color: #fff;
+    cursor: pointer;
+    float: right;
+    font-size: 20px;
+    padding: 8px 20px;
+    width:65px;
+    text-align:center;
+}
+
+.labelalign {
+    display: block;
+    float: left;
+    margin: 8px 0 0;
+    width:65px;
+}
+
+.packagelst {
+    border: 1px solid;
+    display: block;
+    font-size: 11px;
+    height: 212px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 320px;
+    margin: 0;
+}
+
+.box_type label input {
+    margin: 2px 5px;
+    width: auto;
+}
+
+
+
+.box_type {
+    background-color: #fff;
+    border-radius: 5px;
+    float: left;
+    margin: 0 5px 0 0;
+    overflow: hidden;
+    padding: 5px;
+    width: auto;
+    /*min-width:241px*/
+}
+
+    .box_type > label {
+        float: left;
+        text-align: left;
+        min-height: 22px;
+    }
+
+.packagecontainer {
+    background-color: lightblue;
+    border-radius: 5px;
+    cursor: pointer;
+    height: auto;
+    margin: 5px;
+    min-width: 225px;
+    width: auto;
+}
+
+/*.toolbar_left select {
+    border: 1px inset #cccccc;
+    border-radius: 5px;
+    margin: 5px 0;
+    vertical-align: top;
+    width: 106px;
+}*/
+
+
+
+.box_type input.date-picker {
+    height: 14px;
+    width: 85px;
+    margin-left: 9px;
+    text-align: center;
+}
+
+
+
+/*/////////////////For cc Screen/////////////////*/
+.table.table_grid thead th {
+    white-space: nowrap;
+    padding: 5px;
+}
+
+.page_content {
+    background-color: #fff;
+    border-radius: 5px;
+    display: block;
+    margin: 5px;
+    overflow: hidden;
+    padding: 5px;
+    min-height: 400px;
+}
+
+    .page_content .error-box {
+        font-size: 20px;
+        text-align: center;
+    }
+
+.page_content_left {
+    border: 1px solid;
+    display: block;
+    float: left;
+    margin: 5px;
+    overflow: auto;
+    padding: 5px;
+    width: 53%;
+    height: 370px;
+}
+
+.page_content_right {
+    display: block;
+    float: left;
+    margin: 5px;
+    overflow: hidden;
+    padding: 0 5px 5px;
+    width: 43%;
+}
+
+.remark_block {
+    background-color: #404040;
+    color: #fff;
+    display: block;
+    font-size: 20px;
+    padding: 12px 4px;
+    text-align: center;
+    width: 98%;
+}
+
+.textarea_block {
+    overflow: hidden;
+    width: 100%;
+}
+
+    .textarea_block textarea {
+        display: block;
+        float: left;
+        margin: 0;
+        min-height: 320px;
+        padding: 1%;
+        width: 97%;
+    }
+
+.page_content_footer {
+    border: 2px solid #fff;
+    border-radius: 5px;
+    margin: 5px;
+    overflow: hidden;
+    padding: 5px;
+    /*background-color: #eeeeee;*/
+    /*bottom: 0;
+    position: absolute;
+    width: 98%;*/
+}
+
+
+
+/*New Add*/
+
+.main-content {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 5px 0 0;
+    flex: 1;
+}
+
+.column-left {
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 37.333333%;
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 5px;
+    padding-left: 10px;
+    flex-direction: column;
+    display: flex;
+    min-height: 0;
+}
+.column-right {
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 60.333333%;
+    max-width: 66.333333%;
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 5px;
+    flex-direction: column;
+    display: flex;
+    min-height: 0;
+}
+
+.main-content .card {
+    border-radius: 0;
+    background-color: #bfbfbf;
+    margin-bottom: 10px;
+    border: 0;
+}
+
+.main-content .column-left .card:last-child, .main-content .column-center .card:last-child, .main-content .column-right .card:last-child {
+    margin-bottom: 0
+}
+
+.main-content .card-body {
+    padding: 5px;
+}
+
+.card-label {
+    display: block;
+    width: 100%;
+    margin-bottom: 2px;
+    overflow: hidden;
+    color: #505050;
+}
+
+
+.card-label-col {
+    float: left;
+    width: 33.33%;
+    text-align: center;
+    font-size: 13px;
+}
+
+.card-label .card-label-col > span {
+    color: #000;
+}
+
+.flexible-box {
+    overflow: auto;
+    flex-grow: 1;
+    flex-basis: 50px;
+}
+
+.table-subfilter {
+    font-size: 13px;
+}
+
+    .table-subfilter tr {
+        border-top: 1px solid #808080;
+    }
+
+        .table-subfilter tr:last-child {
+            border-bottom: 1px solid #808080;
+        }
+
+        .table-subfilter tr td {
+            padding: 2px;
+            white-space: nowrap;
+        }
+
+            .table-subfilter tr td .form-control {
+                padding: 2px 5px;
+                border: 0;
+                border-radius: 0;
+                font-size: inherit;
+                background-color: transparent;
+                height: 19.5px;
+                width: 100%;/* New add*/
+            }
+
+    .table-subfilter .custom-file {
+        height: 19.5px;
+        float: left;
+    }
+
+    .table-subfilter .custom-file-label {
+        height: auto;
+        padding: 0 5px;
+        border-radius: 0;
+        margin: 0;
+        border: 0;
+        background-color: transparent;
+    }
+
+    .table-subfilter .custom-file-input:lang(en) ~ .custom-file-label::after {
+        content: url(../img/folder-13.png);
+    }
+
+    .table-subfilter .custom-file-label::after {
+        height: auto;
+        padding: 2px 5px;
+        border-left: 0;
+        border-radius: 0;
+    }
+
+    .table-subfilter .btn-group {
+        vertical-align: top;
+    }
+
+    .table-subfilter .multiselect.dropdown-toggle.btn {
+        padding: 2px 5px;
+        font-size: inherit;
+        height: 19.5px;
+        line-height: 1;
+        border-radius: 0;
+        border: 0;
+    }
+
+    .table-subfilter .multiselect-container > li > a > label {
+        padding: 2px 10px 2px 30px;
+        width: 100%;
+    }
+
+        .table-subfilter .multiselect-container > li > a > label > input[type="checkbox"] {
+            margin-bottom: 5px;
+            margin-left: -20px;
+        }
+
+    .table-subfilter .dropdown-menu > .active > a {
+        color: #fff;
+        text-decoration: none;
+        background-color: #337ab7;
+        outline: 0;
+    }
+
+
+
+.btn-popup {
+    background-color: #385723;
+    border-radius: 0.5em;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px 30px;
+    margin: 5px;
+}
+
+.popup_header {
+    background-color: #70ad47;
+    color: #ffffff;
+    font-size: 16px;
+    padding: .4em 1em;
+    text-align: center;
+    font-weight: bolder;
+}
+
+#btnClose {
+    float: right;
+    width: 20px;
+    padding: 1px;
+    height: 20px;
+}
+
+#CLScreeningGrid tr:hover {
+    background-color: #385723 !important;
+    color: #ffffff !important;
+}
+
+.rowSelected {
+    background-color: #385723 !important;
+    color: #ffffff !important;
+}
